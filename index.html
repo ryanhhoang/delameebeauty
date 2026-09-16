@@ -2585,6 +2585,15 @@ header img, footer img, .brand img, .logo img, .foot-brand img {
 </optgroup>
 </select>
 </div>
+<div class="field">
+<label for="personsSelect">Personen *</label>
+<select id="personsSelect" name="persons" required="">
+<option value="1">1 Person</option>
+<option value="2">2 Personen</option>
+<option value="3">3 Personen</option>
+</select>
+<div class="field note">Terminanfragen sind für bis zu 3 Personen möglich.</div>
+</div>
 <div class="field"><label data-i18n="lbl_date" for="dateInput">Wunschdatum *</label><input id="dateInput" name="date" required="" type="date"/></div>
 </div>
 <div class="form-row">
@@ -3099,6 +3108,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         phone:document.getElementById('phoneInput').value.trim(),
         email:document.getElementById('emailInput').value.trim(),
         service:document.getElementById('serviceSelect').value,
+        persons:document.getElementById('personsSelect').value,
         date:document.getElementById('dateInput').value,
         dateLabel:formatGermanDate(document.getElementById('dateInput').value),
         time:document.getElementById('timeSelect').value,
