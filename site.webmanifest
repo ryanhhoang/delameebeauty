@@ -1,0 +1,8 @@
+{
+  "name": "DELAMEE Beauty Studio",
+  "short_name": "DELAMEE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F0E4D0",
+  "theme_color": "#6F6B49"
+}
