@@ -3727,6 +3727,140 @@ header img,.site-header img,.foot-brand img{
 }
 </style>
 
+
+<style id="delamee-v59-hours-align">
+@media (max-width:700px){
+  footer .foot-hours p,
+  footer .footer-hours p,
+  footer .opening-hours p{
+    display:grid !important;
+    grid-template-columns:110px 1fr !important;
+    column-gap:0 !important;
+    align-items:baseline !important;
+  }
+}
+</style>
+
+
+<style id="delamee-v60-hours-exact-align">
+@media (max-width:700px){
+  footer .foot-hours p,
+  footer .footer-hours p,
+  footer .opening-hours p{
+    display:grid !important;
+    grid-template-columns:145px 1fr !important;
+    align-items:baseline !important;
+    column-gap:0 !important;
+  }
+}
+</style>
+
+
+<style id="delamee-v61-hours-real-columns">
+footer .foot-col .footer-hour-row{
+  display:grid !important;
+  grid-template-columns:120px max-content !important;
+  column-gap:0 !important;
+  align-items:baseline !important;
+}
+footer .foot-col .footer-hour-row > span{
+  display:block !important;
+  white-space:nowrap !important;
+}
+@media(max-width:700px){
+  footer .foot-col .footer-hour-row{
+    grid-template-columns:120px max-content !important;
+  }
+}
+</style>
+
+
+<style id="delamee-v62-hours-closer">
+footer .foot-col .footer-hour-row{
+  grid-template-columns:98px max-content !important;
+}
+@media(max-width:700px){
+  footer .foot-col .footer-hour-row{
+    grid-template-columns:98px max-content !important;
+  }
+}
+</style>
+
+
+<style id="delamee-v63-hours-much-closer">
+footer .foot-col .footer-hour-row{
+  grid-template-columns:78px max-content !important;
+  column-gap:0 !important;
+}
+@media(max-width:700px){
+  footer .foot-col .footer-hour-row{
+    grid-template-columns:78px max-content !important;
+  }
+}
+</style>
+
+
+<style id="delamee-v64-hours-directly-next">
+footer .foot-col .footer-hour-row{
+  grid-template-columns:70px max-content !important;
+  column-gap:0 !important;
+}
+@media(max-width:700px){
+  footer .foot-col .footer-hour-row{
+    grid-template-columns:70px max-content !important;
+    column-gap:0 !important;
+  }
+}
+</style>
+
+
+<style id="delamee-v65-hours-tight-final">
+/* Wochentage rechtsbündig, damit beide Uhrzeiten nah dran UND exakt untereinander stehen */
+footer .foot-col .footer-hour-row{
+  display:grid !important;
+  grid-template-columns:max-content max-content !important;
+  justify-content:start !important;
+  column-gap:8px !important;
+  align-items:baseline !important;
+}
+footer .foot-col .footer-hour-row > span:first-child{
+  width:76px !important;
+  text-align:right !important;
+  white-space:nowrap !important;
+}
+footer .foot-col .footer-hour-row > span:last-child{
+  white-space:nowrap !important;
+}
+</style>
+
+
+<style id="delamee-v66-hours-left-aligned">
+footer .foot-col .footer-hour-row{
+  display:grid !important;
+  grid-template-columns:70px max-content !important;
+  column-gap:8px !important;
+  justify-content:start !important;
+  align-items:baseline !important;
+}
+footer .foot-col .footer-hour-row > span:first-child{
+  width:auto !important;
+  text-align:left !important;
+  white-space:nowrap !important;
+}
+footer .foot-col .footer-hour-row > span:last-child{
+  text-align:left !important;
+  white-space:nowrap !important;
+}
+</style>
+
+
+<style id="delamee-v67-hours-even-closer">
+footer .foot-col .footer-hour-row{
+  grid-template-columns:62px max-content !important;
+  column-gap:4px !important;
+}
+</style>
+
 </head>
 <body>
 <header>
@@ -4478,9 +4612,9 @@ E-Mail: <a href="mailto:info@delameebeauty.de">info@delameebeauty.de</a></p>
 </div>
 <div class="foot-col">
 <h5 data-i18n="hours_h">Öffnungszeiten</h5>
-<p data-i18n="hours_1s">Mo – Fr  9:30 – 19:30</p>
-<p data-i18n="hours_2s">Samstag  10:00 – 18:00</p>
-<p data-i18n="hours_3s">Sonntag  Geschlossen</p>
+<p class="footer-hour-row" data-i18n="hours_1s"><span>Mo – Fr</span><span>9:30 – 19:30</span></p>
+<p class="footer-hour-row" data-i18n="hours_2s"><span>Samstag</span><span>10:00 – 18:00</span></p>
+<p class="footer-hour-row" data-i18n="hours_3s"><span>Sonntag</span><span>Geschlossen</span></p>
 </div>
 <div class="foot-col">
 <h5 data-i18n="nav_kontakt">Kontakt</h5>
@@ -4578,7 +4712,7 @@ const I18N = {
     checkbox_text:`Ich habe die <a href="#datenschutz" onclick="event.preventDefault();openModal('datenschutz');">Datenschutzerklärung</a> zur Kenntnis genommen. <strong>* Pflichtfeld</strong>`,
     btn_send:"Terminanfrage senden", insta_h:"Folge uns auf Instagram", hours_h:"Öffnungszeiten",
     hours_1:"Montag – Freitag  9:30 – 19:30 Uhr", hours_2:"Samstag  10:00 – 18:00 Uhr", hours_3:"Sonntag  Geschlossen",
-    hours_1s:"Mo – Fr  9:30 – 19:30", hours_2s:"Samstag  10:00 – 18:00", hours_3s:"Sonntag  Geschlossen",
+    hours_1s:"<span>Mo – Fr</span><span>9:30 – 19:30</span>", hours_2s:"<span>Samstag</span><span>10:00 – 18:00</span>", hours_3s:"<span>Sonntag</span><span>Geschlossen</span>",
     foot_services:"Leistungen", foot_studio:"Studio", foot_rights:"Alle Rechte vorbehalten.",
     foot_address:"Delamee Beauty Studio · Dunckerstraße 5 · 10437 Berlin",
     foot_seo:"Nagelstudio Berlin Prenzlauer Berg · Maniküre · Pediküre · UV-Gel · Acryl · Gel X · Nail Art · Wimpernverlängerung · Lash Lifting · Browlifting · Head Spa Berlin",
@@ -4631,7 +4765,7 @@ const I18N = {
     checkbox_text:`I have read the <a href="#datenschutz" onclick="event.preventDefault();openModal('datenschutz');">privacy policy</a> and agree to the processing of my data.`,
     btn_send:"Send appointment request", insta_h:"Follow us on Instagram", hours_h:"Opening Hours",
     hours_1:"Monday – Friday  9:30am – 7:30pm", hours_2:"Saturday  10:00am – 6:00pm", hours_3:"Sunday  Closed",
-    hours_1s:"Mon – Fri  9:30 – 19:30", hours_2s:"Saturday  10:00 – 18:00", hours_3s:"Sunday  Closed",
+    hours_1s:"<span>Mon – Fri</span><span>9:30 – 19:30</span>", hours_2s:"<span>Saturday</span><span>10:00 – 18:00</span>", hours_3s:"<span>Sunday</span><span>Closed</span>",
     foot_services:"Services", foot_studio:"Studio", foot_rights:"All rights reserved.",
     foot_address:"Delamee Beauty Studio · Dunckerstraße 5 · 10437 Berlin, Germany",
     foot_seo:"Nail Studio · Lash Extensions · Beauty Studio · Head Spa · Manicure · Pedicure — Berlin",
