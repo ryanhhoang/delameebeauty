@@ -768,6 +768,23 @@
   .cat-card img,.about-media img,.gallery-item img{transition:none;transform:none}
 }
 
+
+/* Sidebar CTA: schneller Zugang zur Terminanfrage */
+.mobile-menu .mobile-menu-cta{
+  margin-top:16px;
+  padding:13px 20px!important;
+  border:1px solid var(--olive)!important;
+  border-radius:999px;
+  background:var(--olive);
+  color:#fff!important;
+  text-align:center;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:15px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.mobile-menu .mobile-menu-cta:hover{background:var(--olive-dark);}
+
 /* ===== V15 streamlined header + mobile navigation ===== */
 .mobile-menu-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.28);padding:0;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer;color:var(--ink);}
 .mobile-menu-toggle span{display:block;width:17px;height:1.5px;background:currentColor;transition:transform .25s ease,opacity .2s ease;}
@@ -2117,6 +2134,7 @@ header img, footer img, .brand img, .logo img, .foot-brand img {
 <a data-i18n="nav_results" href="#arbeiten">Unsere Ergebnisse</a>
 <a data-i18n="nav_preise" href="#preise">Preise</a>
 <a data-i18n="nav_kontakt" href="#kontakt">Kontakt</a>
+<a class="mobile-menu-cta" data-i18n="nav_cta" href="#kontakt">Terminanfrage</a>
 <div aria-label="Sprache wählen" class="mobile-langsw">
 <button class="active" data-lang="de" type="button">DE</button><span>/</span><button data-lang="en" type="button">EN</button>
 </div>
@@ -3046,7 +3064,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 /* ===== DELAMEE Google Apps Script form bridge ===== */
-const DELAMEE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQejTYwny3NPtyvfohzRUaVRe3rb9OvEZ7GnmVCXzCY6tjILaLN-vWiI_HcAY7Q243/exec';
+const DELAMEE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNEhBo5P2qG_MfNMc4_uRWExwEyQMTcVP_ZL2lPR20tw1S8YRpZz7flNWQaDEJEHCm/exec';
 
 function formatGermanDate(iso){
   if(!iso) return '';
