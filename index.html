@@ -4136,7 +4136,15 @@ header img,.site-header img,.foot-brand img{
 <div class="field"><label data-i18n="lbl_date" for="dateInput">Wunschdatum *</label><input id="dateInput" name="date" required="" type="date"/></div>
 </div>
 <div class="form-row">
-<div class="field" style="grid-column:1/-1;">
+<div class="field">
+<label for="personsSelect">Personen *</label>
+<select id="personsSelect" name="persons" required="">
+<option value="1">1 Person</option>
+<option value="2">2 Personen</option>
+<option value="3">3 Personen</option>
+</select>
+</div>
+<div class="field">
 <label data-i18n="lbl_time" for="timeSelect">Wunschzeit *</label>
 <select id="timeSelect" name="time" required=""><option data-i18n="opt_choose_time" value="">Bitte zuerst Wunschdatum wählen</option></select>
 <div class="field note" id="timeNote"></div>
@@ -4717,6 +4725,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         date:document.getElementById('dateInput').value,
         dateLabel:formatGermanDate(document.getElementById('dateInput').value),
         time:document.getElementById('timeSelect').value,
+        persons:document.getElementById('personsSelect').value,
         notes:document.getElementById('notesInput').value.trim(),
         lang:currentLang,
         photo:photoData
@@ -5058,5 +5067,18 @@ function loadGoogleMap(){
 })();
 </script>
 
+
+<script id="v51-persons-language">
+(function(){
+  function syncPersonsLabel(){
+    const l=document.querySelector('label[for="personsSelect"]');
+    if(l) l.textContent=(typeof currentLang!=='undefined' && currentLang==='en')?'Persons *':'Personen *';
+  }
+  document.addEventListener('click',function(e){
+    if(e.target && (e.target.closest('[data-lang]') || e.target.closest('.lang-switch'))) setTimeout(syncPersonsLabel,0);
+  });
+  document.addEventListener('DOMContentLoaded',syncPersonsLabel);
+})();
+</script>
 </body>
 </html>
