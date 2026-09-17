@@ -5012,5 +5012,80 @@ function loadGoogleMap(){
 })();
 </script>
 
+
+<script id="v49-email-validation">
+(function(){
+  const COMMON_TLD_TYPOS = new Set([
+    'con','cim','vom','comm','cpm','gmai','gmial','gmal','deu','dwe'
+  ]);
+  const COMMON_DOMAIN_TYPOS = {
+    'gmai.com':'gmail.com',
+    'gmial.com':'gmail.com',
+    'gmal.com':'gmail.com',
+    'gmail.con':'gmail.com',
+    'gmail.cim':'gmail.com',
+    'gmail.de.com':'gmail.com',
+    'hotmai.com':'hotmail.com',
+    'hotmal.com':'hotmail.com',
+    'outlok.com':'outlook.com',
+    'outllok.com':'outlook.com',
+    'icloud.con':'icloud.com',
+    'yahoo.con':'yahoo.com'
+  };
+
+  function validateEmailStrict(input){
+    const value=(input.value||'').trim().toLowerCase();
+    input.setCustomValidity('');
+    if(!value) return true;
+
+    const basic=/^[^\s@]+@[^\s@]+\.[a-z]{2,63}$/i;
+    if(!basic.test(value)){
+      input.setCustomValidity('Bitte gib eine gültige E-Mail-Adresse ein.');
+      return false;
+    }
+
+    const domain=value.split('@')[1] || '';
+    const tld=domain.split('.').pop() || '';
+
+    if(COMMON_DOMAIN_TYPOS[domain]){
+      input.setCustomValidity('Meintest du '+value.split('@')[0]+'@'+COMMON_DOMAIN_TYPOS[domain]+'? Bitte prüfe deine E-Mail-Adresse.');
+      return false;
+    }
+    if(COMMON_TLD_TYPOS.has(tld)){
+      input.setCustomValidity('Bitte prüfe die Endung deiner E-Mail-Adresse.');
+      return false;
+    }
+    return true;
+  }
+
+  function wire(){
+    const forms=document.querySelectorAll('form');
+    forms.forEach(form=>{
+      const email=form.querySelector('input[type="email"], input[name="email"], input[name="Email"]');
+      if(!email) return;
+
+      email.addEventListener('input',()=>email.setCustomValidity(''));
+      email.addEventListener('blur',()=>{
+        validateEmailStrict(email);
+        if(!email.checkValidity()) email.reportValidity();
+      });
+
+      /* capture=true: validation runs before existing submit handlers */
+      form.addEventListener('submit',function(e){
+        if(!validateEmailStrict(email) || !email.checkValidity()){
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          email.reportValidity();
+          email.focus();
+        }
+      },true);
+    });
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire);
+  else wire();
+})();
+</script>
+
 </body>
 </html>
