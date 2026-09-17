@@ -4052,7 +4052,7 @@ header img,.site-header img,.foot-brand img{
 <div class="field"><label data-i18n="lbl_phone" for="phoneInput">Telefonnummer *</label><input autocomplete="tel" data-i18n-ph="ph_phone" id="phoneInput" inputmode="tel" name="phone" placeholder="Deine Telefonnummer" required="" type="tel"/></div>
 </div>
 <div class="form-row">
-<div class="field" style="grid-column:1/-1;"><label for="emailInput">E-Mail *</label><input autocomplete="email" id="emailInput" name="email" placeholder="deine@email.de" required="" type="email"/></div>
+<div class="field" style="grid-column:1/-1;"><label for="emailInput">E-Mail *</label><input autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="email" id="emailInput" name="email" placeholder="deine@email.de" required="" type="email"/></div>
 </div>
 <div class="form-row">
 <div class="field">
@@ -4854,7 +4854,7 @@ function loadGoogleMap(){
     if(parts.length!==2 || !parts[0] || !parts[1]) return null;
     const local=parts[0], domain=parts[1];
     const exact={
-      'gmail.con':'gmail.com','gmial.com':'gmail.com','gmal.com':'gmail.com','gamil.com':'gmail.com','hmail.com':'gmail.com','hmail.con':'gmail.com',
+      'gmail.con':'gmail.com','gmai.com':'gmail.com','gmial.com':'gmail.com','gmal.com':'gmail.com','gamil.com':'gmail.com','hmail.com':'gmail.com','hmail.con':'gmail.com',
       'hotmail.con':'hotmail.com','hotnail.com':'hotmail.com','hotmai.com':'hotmail.com',
       'outlook.con':'outlook.com','outlok.com':'outlook.com','outloo.com':'outlook.com',
       'icloud.con':'icloud.com','icoud.com':'icloud.com',
@@ -5013,77 +5013,48 @@ function loadGoogleMap(){
 </script>
 
 
-<script id="v49-email-validation">
+<script id="v50-email-submit-guard">
 (function(){
-  const COMMON_TLD_TYPOS = new Set([
-    'con','cim','vom','comm','cpm','gmai','gmial','gmal','deu','dwe'
-  ]);
-  const COMMON_DOMAIN_TYPOS = {
-    'gmai.com':'gmail.com',
-    'gmial.com':'gmail.com',
-    'gmal.com':'gmail.com',
-    'gmail.con':'gmail.com',
-    'gmail.cim':'gmail.com',
-    'gmail.de.com':'gmail.com',
-    'hotmai.com':'hotmail.com',
-    'hotmal.com':'hotmail.com',
-    'outlok.com':'outlook.com',
-    'outllok.com':'outlook.com',
-    'icloud.con':'icloud.com',
-    'yahoo.con':'yahoo.com'
+  const corrections={
+    'gmai.com':'gmail.com','gmial.com':'gmail.com','gmal.com':'gmail.com',
+    'gamil.com':'gmail.com','gmail.con':'gmail.com','gmail.cim':'gmail.com',
+    'hotmai.com':'hotmail.com','hotmal.com':'hotmail.com','hotmail.con':'hotmail.com',
+    'outlok.com':'outlook.com','outllok.com':'outlook.com','outlook.con':'outlook.com',
+    'icloud.con':'icloud.com','yahoo.con':'yahoo.com'
   };
-
-  function validateEmailStrict(input){
-    const value=(input.value||'').trim().toLowerCase();
-    input.setCustomValidity('');
-    if(!value) return true;
-
-    const basic=/^[^\s@]+@[^\s@]+\.[a-z]{2,63}$/i;
-    if(!basic.test(value)){
-      input.setCustomValidity('Bitte gib eine gültige E-Mail-Adresse ein.');
+  function check(email){
+    email.setCustomValidity('');
+    const value=email.value.trim().toLowerCase();
+    const parts=value.split('@');
+    if(parts.length!==2) return true;
+    const domain=parts[1];
+    if(corrections[domain]){
+      email.setCustomValidity('Tippfehler erkannt: Bitte verwende '+parts[0]+'@'+corrections[domain]+'.');
       return false;
     }
-
-    const domain=value.split('@')[1] || '';
-    const tld=domain.split('.').pop() || '';
-
-    if(COMMON_DOMAIN_TYPOS[domain]){
-      input.setCustomValidity('Meintest du '+value.split('@')[0]+'@'+COMMON_DOMAIN_TYPOS[domain]+'? Bitte prüfe deine E-Mail-Adresse.');
-      return false;
-    }
-    if(COMMON_TLD_TYPOS.has(tld)){
-      input.setCustomValidity('Bitte prüfe die Endung deiner E-Mail-Adresse.');
+    if(/\.(con|cim|comm|cpm|vom)$/.test(domain)){
+      email.setCustomValidity('Bitte prüfe die Domain-Endung deiner E-Mail-Adresse.');
       return false;
     }
     return true;
   }
-
-  function wire(){
-    const forms=document.querySelectorAll('form');
-    forms.forEach(form=>{
-      const email=form.querySelector('input[type="email"], input[name="email"], input[name="Email"]');
-      if(!email) return;
-
-      email.addEventListener('input',()=>email.setCustomValidity(''));
-      email.addEventListener('blur',()=>{
-        validateEmailStrict(email);
-        if(!email.checkValidity()) email.reportValidity();
-      });
-
-      /* capture=true: validation runs before existing submit handlers */
-      form.addEventListener('submit',function(e){
-        if(!validateEmailStrict(email) || !email.checkValidity()){
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          email.reportValidity();
-          email.focus();
-        }
-      },true);
-    });
+  function init(){
+    const form=document.getElementById('bookingForm');
+    const email=document.getElementById('emailInput');
+    if(!form||!email) return;
+    email.addEventListener('input',()=>email.setCustomValidity(''));
+    email.addEventListener('blur',()=>{if(!check(email)) email.reportValidity();});
+    form.addEventListener('submit',function(e){
+      if(!check(email)){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        email.reportValidity();
+        email.focus();
+      }
+    },true);
   }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire);
-  else wire();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
 })();
 </script>
 
